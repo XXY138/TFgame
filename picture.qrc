@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/">
+        <file>fengmian.jpeg</file>
+        <file>anniu.jpeg</file>
+        <file>backbutton.jpg</file>
+        <file>beijing1.jpg</file>
+        <file>guanqia1.jpg</file>
+        <file>guanqia2.jpg</file>
+        <file>fengmian2.jpg</file>
+        <file>pig.png</file>
+        <file>ta1.png</file>
+        <file>camel.png</file>
+        <file>realcamel.png</file>
+        <file>beijing2.jpg</file>
+        <file>truecamel.png</file>
+        <file>truecrow.png</file>
+        <file>fengmian3.jpg</file>
+        <file>beijing3.jpg</file>
+    </qresource>
+</RCC>
