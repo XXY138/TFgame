@@ -22,6 +22,8 @@ public:
     ~MainWindow();
     void paintEvent(QPaintEvent* e);
 
+private slots:
+
 private:
     Ui::MainWindow *ui;
 };

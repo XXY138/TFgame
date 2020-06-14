@@ -14,7 +14,7 @@ Window::Window(QWidget *parent) : QMainWindow(parent)
     Button *button1=new Button(":/guanqia1.jpg");
     button1->setParent(this);
     button1->move(400,150);
-    GameWindow *scene1 = new GameWindow;
+    GameWindow * scene1 = new GameWindow;
     connect(button1,&QPushButton::clicked,this,[=](){
         this->close();
         scene1->show();
@@ -27,15 +27,7 @@ Window::Window(QWidget *parent) : QMainWindow(parent)
     Button *button2=new Button(":/guanqia2.jpg");
     button2->setParent(this);
     button2->move(600,150);
-    GameWindow *scene2 = new GameWindow;
-    connect(button2,&QPushButton::clicked,this,[=](){
-        this->close();
-        scene2->show();
-    });
-    connect(scene2,&GameWindow::chooseToBack,this,[=](){
-        scene2->close();
-        this->show();
-    });
+
 
 }
 

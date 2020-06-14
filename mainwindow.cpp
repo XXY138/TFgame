@@ -34,3 +34,4 @@ void MainWindow::paintEvent(QPaintEvent* e){
     QPixmap pixmap(":/fengmian3.jpg");
     painter.drawPixmap(0,0,this->width(),this->height(),pixmap);
 }
+

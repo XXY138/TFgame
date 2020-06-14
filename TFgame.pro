@@ -31,7 +31,9 @@ SOURCES += \
     window.cpp \
     gamewindow.cpp \
     tower.cpp \
-    object.cpp
+    object.cpp \
+    object2.cpp \
+    enemy.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -39,7 +41,9 @@ HEADERS += \
     window.h \
     gamewindow.h \
     tower.h \
-    object.h
+    object.h \
+    object2.h \
+    enemy.h
 
 FORMS += \
         mainwindow.ui
@@ -51,3 +55,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     picture.qrc
+
+DISTFILES +=

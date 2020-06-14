@@ -9,6 +9,7 @@ class Button : public QPushButton
     Q_OBJECT
 public:
     explicit Button(QString pix);
+    Button();
 
 signals:
 
