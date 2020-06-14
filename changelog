@@ -1,0 +1,17 @@
+#Changelog
+All notable changes to this project will be documented in this file.
+
+## [0.0.1] – 2020-06-14
+### Added
+-	增加了一个Object2类，与之前的Object相比，主要升级在于能够控制速度。
+-	增加了一个敌人类Enemy（继承了相当于简单版本敌人的Object2）。敌人类中，公有成员有函数得到攻击、删除、离开塔的攻击范围、得到当前位置（目前均还未实现），私有成员有是否活跃、图片、当前血量、速度、坐标、游戏界面的指针。
+-	对于GameWindow类，公有成员中：增加了deleteTower1、deleteTower2、deleteTower3函数，用于删除已建立的塔（目前还未实现）；增加了getHpDamage函数，实现玩家受到攻击时血量减少；增加了awardGold函数，用于增加玩家金币。私有成员中：增加了判断游戏输赢的两个bool量，判断是否已经建了塔的三个bool量，int型金币，int型敌人波数和总波数，int型玩家血量。
+-	对于Tower类，公有成员中：增加了chooseEnemy、loseEnemy、attackEnemy和enemyKilled函数，分别用于选择、失去、攻击、杀死敌人（目前还未实现）；私有成员中：增加了两个QPoint，用于定位攻击范围；增加了三个指针，分别用于定位游戏界面、计时、选择敌人；以及两个int型，分别为攻击速度和伤害值。
+
+
+###Changed
+-	GameWindow类中，将原来只能在一个地方建一个塔的函数setTower改为了三个函数：setTower1、setTower2、setTower3，分别与三个按钮对应，同时在函数中增加了一个判断，避免重复建立。
+-	Tower类中，原来的构造函数的参数增加了。
+-	Window界面中，关卡二改为暂不开放。
+
+（注：由于一些失误，提交了几次才成功，而且好像误传了一些不属于该项目的文件（比如testreal）。检查时把testreal抛开应该还是正常的。）
