@@ -6,7 +6,6 @@
 #include <QList>
 
 
-class Object2;
 class Bullet;
 class Enemy;
 
@@ -16,16 +15,20 @@ class GameWindow : public QMainWindow
 public:
     explicit GameWindow(QWidget *parent = nullptr);
     void paintEvent(QPaintEvent*);
-    void addObject();
+    void addEnemy();
     void updateScene();
-    void setTower1();
-    void setTower2();
-    void setTower3();
+    void setTower1_1();
+    void setTower1_2();
+    void setTower2_1();
+    void setTower2_2();
+    void setTower3_1();
+    void setTower3_2();
     void deleteTower1();
     void deleteTower2();
     void deleteTower3();
     void getHpDamage(int damage);
     void awardGold(int gold);
+    QList<Enemy*> get_enemylist();
 
 private:
     bool _gameWin;
@@ -35,7 +38,7 @@ private:
     int _totalWaves;
     int _playerHp;
     QList<Tower*> _towerlist;
-    QList<Object2*> _objectlist;
+    QList<Enemy*> _enemylist;
     bool tower1_exist;
     bool tower2_exist;
     bool tower3_exist;

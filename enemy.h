@@ -1,37 +1,39 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
-#include "object2.h"
 #include <QObject>
 #include <QPoint>
 #include <QPixmap>
+#include <QPropertyAnimation>
+#include <QPainter>
 
 class QPainter;
 class GameWindow;
 class Tower;
 
-class Enemy : public Object2
+class Enemy : public QObject
 {
     Q_OBJECT
 public:
-    Enemy(GameWindow *game, const QPixmap &sprite = QPixmap(":/truecamel.png"));
-    ~Enemy();
+    Enemy(QPoint start,QPoint target,QString filename);
+    void draw(QPainter *painter) const;
+    void move();
+    QPoint getCurrentPos();
+    void getAttack(Tower* attacker);
+    bool isAlive();
 
-    void getDamage(int damage);
-    void getRemoved();
-    void gotLostSight(Tower *attacker);
-    QPoint pos() const;
 
 public slots:
 
 private:
-    bool			_active;
-    int				_maxHp;
-    int				_currentHp;
-    double			_speed;
-
-    QPoint			_pos;
-    GameWindow *	_game;
+    bool _alive;
+    int	_currentHp;
+    int _maxHp;
+    double _speed;
+    QPoint _startpos;
+    QPoint _targetpos;
+    QPoint _currentpos;
+    QPixmap _pixmap;
 };
 
 #endif // ENEMY_H

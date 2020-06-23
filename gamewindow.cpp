@@ -1,17 +1,19 @@
 #include "gamewindow.h"
 #include "button.h"
-#include "object2.h"
+#include "enemy.h"
+#include "menubutton.h"
 #include <QPainter>
 #include <QTimer>
-
+#include <QMediaPlayer>
 
 GameWindow::GameWindow(QWidget *parent) :
     QMainWindow(parent),
-    _waves(0),_totalWaves(3),
-    _playerHp(10),
-    _gold(1000),
     _gameWin(false),
     _gameLose(false),
+    _gold(1000),
+    _waves(0),
+    _totalWaves(3),
+    _playerHp(10),
     tower1_exist(false),
     tower2_exist(false),
     tower3_exist(false)
@@ -21,12 +23,9 @@ GameWindow::GameWindow(QWidget *parent) :
     backbutton->setParent(this);
     backbutton->move(5,5);
 
-    Button * set_o =new Button(":/anniu.jpeg");
-    set_o->setParent(this);
-    set_o->move(100,600);
-    connect(set_o,&Button::clicked,this,&GameWindow::addObject);
 
-    Button * set_tower1 =new Button(":/1.jpg");
+
+     /*Button * set_tower1 =new Button(":/1.jpg");
     set_tower1->setParent(this);
     set_tower1->move(1000,5);
     connect(set_tower1,&Button::clicked,this,&GameWindow::setTower1);
@@ -54,17 +53,30 @@ GameWindow::GameWindow(QWidget *parent) :
     Button * delete_tower3 =new Button(":/333.jpg");
     delete_tower3->setParent(this);
     delete_tower3->move(800,185);
-    connect(delete_tower3,&Button::clicked,this,&GameWindow::deleteTower3);
+    connect(delete_tower3,&Button::clicked,this,&GameWindow::deleteTower3);*/
 
 
     connect(backbutton,&Button::clicked,this,[=](){
         emit chooseToBack();
     });
 
+    Button * set_o =new Button(":/anniu.jpeg");
+    set_o->setParent(this);
+    set_o->move(100,600);
+    connect(set_o,&Button::clicked,this,&GameWindow::addEnemy);
     QTimer * timer=new QTimer(this);
     connect(timer,&QTimer::timeout,this,&GameWindow::updateScene);
-    timer->start(10);
+    timer->start(100);
 
+    MenuButton *menubtn1=new MenuButton(":/set_up.png");
+    menubtn1->setParent(this);
+    menubtn1->move(5,100);
+    connect(menubtn1,&MenuButton::setUp1_1,this,&GameWindow::setTower1_1);
+    connect(menubtn1,&MenuButton::setUp1_2,this,&GameWindow::setTower1_2);
+    connect(menubtn1,&MenuButton::setUp2_1,this,&GameWindow::setTower2_1);
+    connect(menubtn1,&MenuButton::setUp2_2,this,&GameWindow::setTower2_2);
+    connect(menubtn1,&MenuButton::setUp3_1,this,&GameWindow::setTower3_1);
+    connect(menubtn1,&MenuButton::setUp3_2,this,&GameWindow::setTower3_2);
 }
 
 void GameWindow::paintEvent(QPaintEvent *){
@@ -80,15 +92,20 @@ void GameWindow::paintEvent(QPaintEvent *){
     QPainter painter(this);
     QPixmap pixmap(":/beijing4.jpg");
     painter.drawPixmap(0,0,this->width(),this->height(),pixmap);
-    foreach(Tower * tower,_towerlist)
+
+    foreach (const Tower *tower, _towerlist)
         tower->draw(&painter);
-    foreach(Object2 * object,_objectlist)
-        object->draw(&painter);
+    foreach (const Enemy *enemy, _enemylist)
+        enemy->draw(&painter);
 }
 
-void GameWindow::setTower1(){
+void GameWindow::setTower1_1(){
     if(!tower1_exist){
-        Tower * new_tower=new Tower(QPoint(415,395),QPoint(300,500),QPoint(700,500),this,":/trueta2.png");
+        Tower * new_tower=new Tower(QPoint(195,615),QPoint(10,500),QPoint(300,500),":/trueta1.png",this);
+        QMediaPlayer * player = new QMediaPlayer;
+        player->setMedia(QUrl("qrc:/music/shortSetTower.mp3"));
+        player->setVolume(30);
+        player->play();
         _towerlist.push_back(new_tower);
         tower1_exist=true;
         update();
@@ -98,10 +115,15 @@ void GameWindow::setTower1(){
     }
 }
 
-void GameWindow::setTower2(){
-    if(!tower2_exist){
-        Tower * new_tower=new Tower(QPoint(660,615),QPoint(700,500),QPoint(1000,500),this,":/trueta1.png");
+void GameWindow::setTower1_2(){
+    if(!tower1_exist){
+        Tower * new_tower=new Tower(QPoint(195,615),QPoint(10,500),QPoint(300,500),":/trueta2.png",this);
+        QMediaPlayer * player = new QMediaPlayer;
+        player->setMedia(QUrl("qrc:/music/shortSetTower.mp3"));
+        player->setVolume(30);
+        player->play();
         _towerlist.push_back(new_tower);
+        tower1_exist=true;
         update();
     }
     else {
@@ -109,16 +131,71 @@ void GameWindow::setTower2(){
     }
 }
 
-void GameWindow::setTower3(){
-    if(!tower3_exist){
-        Tower * new_tower=new Tower(QPoint(195,615),QPoint(10,500),QPoint(300,500),this,":/trueta1.png");
+void GameWindow::setTower2_1(){
+    if(!tower2_exist){
+        Tower * new_tower=new Tower(QPoint(410,410),QPoint(300,500),QPoint(700,500),":/trueta1.png",this);
+        QMediaPlayer * player = new QMediaPlayer;
+        player->setMedia(QUrl("qrc:/music/shortSetTower.mp3"));
+        player->setVolume(30);
+        player->play();
         _towerlist.push_back(new_tower);
+        tower2_exist=true;
         update();
     }
     else {
         return;
     }
 }
+
+void GameWindow::setTower2_2(){
+    if(!tower2_exist){
+        Tower * new_tower=new Tower(QPoint(410,410),QPoint(300,500),QPoint(700,500),":/trueta2.png",this);
+        QMediaPlayer * player = new QMediaPlayer;
+        player->setMedia(QUrl("qrc:/music/shortSetTower.mp3"));
+        player->setVolume(30);
+        player->play();
+        _towerlist.push_back(new_tower);
+        tower2_exist=true;
+        update();
+    }
+    else {
+        return;
+    }
+}
+
+void GameWindow::setTower3_1(){
+    if(!tower3_exist){
+        Tower * new_tower=new Tower(QPoint(660,615),QPoint(700,500),QPoint(1000,500),":/trueta1.png",this);
+        QMediaPlayer * player = new QMediaPlayer;
+        player->setMedia(QUrl("qrc:/music/shortSetTower.mp3"));
+        player->setVolume(30);
+        player->play();
+        _towerlist.push_back(new_tower);
+        tower3_exist=true;
+        update();
+    }
+    else {
+        return;
+    }
+}
+
+void GameWindow::setTower3_2(){
+    if(!tower3_exist){
+        Tower * new_tower=new Tower(QPoint(660,615),QPoint(700,500),QPoint(1000,500),":/trueta2.png",this);
+        QMediaPlayer * player = new QMediaPlayer;
+        player->setMedia(QUrl("qrc:/music/shortSetTower.mp3"));
+        player->setVolume(30);
+        player->play();
+        _towerlist.push_back(new_tower);
+        tower3_exist=true;
+        update();
+    }
+    else {
+        return;
+    }
+}
+
+
 
 void GameWindow::deleteTower1(){
     if(tower1_exist){
@@ -147,16 +224,16 @@ void GameWindow::deleteTower3(){
     }
 }
 
-void GameWindow::addObject(){
-    Object2 * object=new Object2(QPoint(10,500),QPoint(1000,500),":/truecrow.png");
-    _objectlist.push_back(object);
-    object->move();
-    update();
+void GameWindow::addEnemy(){
+    Enemy *enemy=new Enemy(QPoint(10,500),QPoint(1000,500),":/truecrow.png");
+    _enemylist.push_back(enemy);
 }
 
 void GameWindow::updateScene(){
-    foreach(Object2* object,this->_objectlist)
-           object->move();
+    foreach(Enemy *enemy,this->_enemylist)
+        enemy->move();
+    foreach(Tower *tower,this->_towerlist)
+        tower->upDateCheck();
     update();
 }
 
@@ -174,4 +251,6 @@ void GameWindow::awardGold(int gold)
     update();
 }
 
-
+QList<Enemy*> GameWindow::get_enemylist(){
+    return this->_enemylist;
+}

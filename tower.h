@@ -14,29 +14,30 @@ class Tower : public QObject
 {
     Q_OBJECT
 public:
-    explicit Tower(QPoint posi,QPoint startattck,QPoint endattack,GameWindow * game,QString pixFileName);
-    ~Tower();
-    void draw(QPainter *paint);
-    void chooseEnemy(Enemy* enemy);
-    void loseEnemy();
-    void attackEnemy();
-    void enemyKilled();
+    explicit Tower(QPoint posi,QPoint startattck,QPoint endattack,QString pixFileName,GameWindow* game);
+    void draw(QPainter *paint) const;
+    QPoint getPos();
+    int getDamageValue();
+    void upDateCheck();
+    void chooseToAttack(Enemy* enemy);
+    void attack();
+    void targetKilled();
 
 private:
     QPoint _posi;
     QPixmap _pixmap;
     QPoint _startAttack;
     QPoint _endAttack;
-    GameWindow* _game;
-    QTimer* _rateTimer;
-    Enemy* _chosenEnemy;
-    int _rate;
+    int _fireRate;
     int _damage;
+    Enemy* _target;
+    GameWindow* _game;
+    /*QTimer * _fireTimer;*/
 
 signals:
 
 private slots:
-
+    /*void shoot();*/
 };
 
 #endif // TOWER_H

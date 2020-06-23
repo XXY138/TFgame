@@ -6,6 +6,7 @@
 #include <QPixmap>
 #include <QPaintEvent>
 #include <QPushButton>
+#include <QMediaPlayer>
 QT_BEGIN_NAMESPACE
 
 namespace Ui {

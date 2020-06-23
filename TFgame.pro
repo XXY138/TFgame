@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT       += multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -32,8 +33,8 @@ SOURCES += \
     gamewindow.cpp \
     tower.cpp \
     object.cpp \
-    object2.cpp \
-    enemy.cpp
+    enemy.cpp \
+    menubutton.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -42,8 +43,8 @@ HEADERS += \
     gamewindow.h \
     tower.h \
     object.h \
-    object2.h \
-    enemy.h
+    enemy.h \
+    menubutton.h
 
 FORMS += \
         mainwindow.ui

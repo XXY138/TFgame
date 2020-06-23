@@ -22,6 +22,10 @@ MainWindow::MainWindow(QWidget *parent) :
         this->close();
         scene->show();
     });
+    QMediaPlayer * player = new QMediaPlayer;
+    player->setMedia(QUrl("qrc:/music/mario.mp3"));
+    player->setVolume(30);
+    player->play();
 }
 
 MainWindow::~MainWindow()

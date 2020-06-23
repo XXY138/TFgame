@@ -27,5 +27,16 @@
         <file>111.jpg</file>
         <file>222.jpg</file>
         <file>333.jpg</file>
+        <file>music/mario.mp3</file>
+        <file>music/longMario.mp3</file>
+        <file>music/lose.mp3</file>
+        <file>music/setTower.mp3</file>
+        <file>music/upTower.mp3</file>
+        <file>music/win.mp3</file>
+        <file>music/shortSetTower.mp3</file>
+        <file>music/shortUpTower.mp3</file>
+        <file>music/shortLose.mp3</file>
+        <file>menubutton.png</file>
+        <file>set_up.png</file>
     </qresource>
 </RCC>
