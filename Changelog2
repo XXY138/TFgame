@@ -1,0 +1,18 @@
+#changelog2
+All notable changes during Change2(on 6.23) to this project will be documented in this file.
+
+##[0.0.2] -2020-06-23
+###Removed
+-	移除了Object2类，为了避免冗余。直接将其中的功能移植到了Enemy类中。
+
+###Added
+-	增加了一个MenuButton类，用于用一个总控按钮控制在各处建塔。
+-	增加了背景音乐及建塔音效。
+
+###Changed
+-	改变了建塔方式。改为用MenuButton总控。
+-	Enemy类中，改变了原本预计实现的一些函数。现有函数为构造函数、draw（绘制）、move（移动）、getCurrentPos（返回现有位置）、getAttack（受到攻击）及isAlive（判断死活）。
+-	GameWindow类中，setTower1、setTower2、setTower3函数改成了六个函数，用于每个位置可以建造不同的两种塔；将原来针对Object2操作的函数及成员都改为了Enemy；实现了getHpDamage、awardGold函数。
+-	Tower类中，改变了原本预计实现的一些函数。现有函数为构造函数、draw（绘制）、getPos（返回位置）、getDamageValue（得到该塔的伤害值）、upDateCheck（每次界面刷新的时候用于检查）、chooseToAttack（选择敌人进行攻击）、attack（还未实现，原本想用于加载子弹）、targetKilled（敌人离开范围或者死亡时调整指针）。
+
+（注：仍然由于一些失误，提交了几次才成功，但这次应该没有奇怪的东西混入了…吧！）
