@@ -7,7 +7,6 @@
 #include <QPropertyAnimation>
 #include <QPainter>
 
-class QPainter;
 class GameWindow;
 class Tower;
 
@@ -20,12 +19,12 @@ public:
     void move();
     QPoint getCurrentPos();
     void getAttack(Tower* attacker);
-    void getFrozenAttack(Tower* attacker);
+    void getFrozenAttack(Tower* attacker);      /*接受冰冻塔攻击*/
     bool isAlive();
     void getDeleted();
-    bool checkArrive();
-    int getDamageValue();
-    int getValue();
+    bool checkArrive();                         /*判断敌人是否到达终点*/
+    int getDamageValue();                       /*返回敌人的伤害值*/
+    int getValue();                             /*返回敌人的金币值*/
 
 public slots:
 

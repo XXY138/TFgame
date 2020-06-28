@@ -42,6 +42,7 @@ GameWindow2::GameWindow2(QWidget *parent) :
     connect(_timer,&QTimer::timeout,this,&GameWindow2::updateScene);
 
     _enemytimer1=new QTimer(this);
+    /*使每次定时器被触发的时候都根据已出的怪物的个数来出不同的怪，实现仅用一个定时器出不同的怪，并且当波数到达某预设值后开始多个怪物一起出*/
     connect(_enemytimer1,&QTimer::timeout,this,[=](){
         if(wave_num<=5){
             addEnemy(":/vil8.png",this,180,10,100,4);
@@ -96,6 +97,7 @@ GameWindow2::GameWindow2(QWidget *parent) :
     this->setFixedSize(1100,750);
 
 
+    /*设定两个回血键*/
     Button *hpbtn=new Button(":/b55.png");
     hpbtn->setParent(this);
     hpbtn->move(305,130);
@@ -106,8 +108,7 @@ GameWindow2::GameWindow2(QWidget *parent) :
     hppbtn->move(475,130);
     connect(hppbtn,&Button::clicked,this,&GameWindow2::HpRecoverPartially);
 
-
-
+    /*设定三个建塔键，一个升级键，一个删除键*/
     MenuButton2 *menubtn1=new MenuButton2(":/b11.png");
     menubtn1->setParent(this);
     menubtn1->move(50,50);
@@ -277,6 +278,7 @@ void GameWindow2::paintEvent(QPaintEvent *){
 }
 
 void GameWindow2::updateScene(){
+    /*失血过多则输*/
     if(_playerHp<=0){
         _timer->stop();
         _player->stop();
@@ -286,6 +288,7 @@ void GameWindow2::updateScene(){
         end->show();
     }
     else {
+        /*如果最后一个怪也出来了并且怪物列表已空，则赢*/
         if (_flag && _enemylist.empty()){
             _timer->stop();
             _player->stop();
@@ -295,7 +298,7 @@ void GameWindow2::updateScene(){
             end->show();
         }
 
-
+        /*不输也不赢则继续刷新*/
         foreach(Enemy2 *enemy,this->_enemylist){
             if(!enemy->checkArrive())
                 enemy->move();
@@ -318,27 +321,12 @@ void GameWindow2::addEnemy(QString filename,GameWindow2* game,int maxHp,int dama
     _enemylist.push_back(enemy);
 }
 
-void GameWindow2::addEnemyRandomly(){
-    srand((unsigned)time(NULL));
-    int num=rand()%7;
-    switch (num) {
-    case 0:{Enemy2 *enemy=new Enemy2(":/vil4.png",this,60,10,100,5.5);_enemylist.push_back(enemy);break;}
-    case 1:{Enemy2 *enemy=new Enemy2(":/vil3.png",this,120,10,100,3.5);_enemylist.push_back(enemy);break;}
-
-    case 2:{Enemy2 *enemy=new Enemy2(":/vil2.png",this,100,15,150,5);_enemylist.push_back(enemy);break;}
-    case 3:{Enemy2 *enemy=new Enemy2(":/vil1.png",this,120,15,150,4);_enemylist.push_back(enemy);break;}
-    case 4:{Enemy2 *enemy=new Enemy2(":/vil7.png",this,140,15,150,3);_enemylist.push_back(enemy);break;}
-
-    case 5:{Enemy2 *enemy=new Enemy2(":/vil6.png",this,120,20,200,5);_enemylist.push_back(enemy);break;}
-    case 6:{Enemy2 *enemy=new Enemy2(":/vil8.png",this,200,20,200,3);_enemylist.push_back(enemy);break;}
-    }
-}
-
 void GameWindow2::deleteEnemy(Enemy2* enemy){
     _enemylist.removeOne(enemy);
     delete enemy;
 }
 
+/*有八个建塔位置，每个位置有三种可能*/
 void GameWindow2::setTower(QPoint pos, QPoint start, QPoint end, QString pix,int type){
     if(pos==Pos1){
         if(!tower_exist[0] && _gold>=normal_cost){
@@ -615,6 +603,7 @@ void GameWindow2::deleteTower(QPoint pos){
             _towerlist.removeOne(tower);
             delete tower;
 
+            /*拆塔后要把标签重新初始化*/
             if(pos==Pos1){
                 tower_exist[0]=false;
                 tower_frozen[0]=false;
@@ -679,8 +668,11 @@ void GameWindow2::showGold_Hp(QPainter *painter){
     painter->save();
     painter->setFont(font);
     painter->setPen(QPen(Qt::white,3));
+
+    /*结构化输出金币和玩家血量*/
     painter->drawText(QRect(100,10,250,150),QString("Gold:%1").arg(_gold));
     painter->drawText(QRect(995,604,250,150),QString("Hp:%1").arg(_playerHp));
+
     painter->restore();
 }
 

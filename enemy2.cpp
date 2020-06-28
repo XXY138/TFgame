@@ -26,6 +26,7 @@ Enemy2::Enemy2(QString filename,GameWindow2* game,int maxHp,int damage,int value
 
 }
 
+
 void Enemy2::move(){
     QVector2D vector(this->_targetpos-this->_startpos);
     vector.normalize();
@@ -36,7 +37,6 @@ void Enemy2::draw(QPainter *painter) const{
     painter->drawPixmap(this->_currentpos,this->_pixmap);
     painter->save();
 
-    // »æÖÆÑªÌõ
     QPoint HpBarPoint = _currentpos + QPoint(Hp_Width/2, 0);
     painter->setPen(Qt::NoPen);
     painter->setBrush(Qt::red);

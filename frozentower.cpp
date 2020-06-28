@@ -14,16 +14,18 @@ FrozenTower::FrozenTower(QPoint posi,QPoint startattck,QPoint endattack,QString 
 
 }
 
+
 void FrozenTower::draw(QPainter *painter) const{
     painter->drawPixmap(_posi,_pixmap);
     painter->save();
     if(_target){
         painter->setPen(Qt::NoPen);
-        painter->setPen(QPen(Qt::white,_line));
+        painter->setPen(QPen(Qt::white,_line));     /*冰冻塔的攻击激光为白色*/
         painter->drawLine(_posi.x()+50,_posi.y()+50,_target->getCurrentPos().x()+50,_target->getCurrentPos().y()+35);
     }
     painter->restore();
 }
+
 
 void FrozenTower::upDateCheck(){
     if(!_target){
@@ -45,7 +47,7 @@ void FrozenTower::upDateCheck(){
 
         }
     else {
-            _target->getFrozenAttack(this);
+            _target->getFrozenAttack(this);     /*与普通塔的区别为每次检查调用的是getFrozenAttack函数而不是getAttack函数*/
     }
     }
 }
@@ -53,5 +55,5 @@ void FrozenTower::upDateCheck(){
 void FrozenTower::chooseToAttack(Enemy *enemy)
 {
     _target=enemy;
-    _target->getFrozenAttack(this);
+    _target->getFrozenAttack(this);     /*与普通塔的区别为每次检查调用的是getFrozenAttack函数而不是getAttack函数*/
 }

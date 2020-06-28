@@ -10,6 +10,8 @@
 class Enemy2;
 class GameWindow2;
 
+
+/*专为GameWindow2设计的塔类*/
 class Tower2 : public QObject
 {
     Q_OBJECT

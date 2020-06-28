@@ -36,6 +36,8 @@ GameWindow::GameWindow(QWidget *parent) :
     _timer=new QTimer(this);
     connect(_timer,&QTimer::timeout,this,&GameWindow::updateScene);
 
+
+    /*通过记录已出的敌人数，实现仅用一个计时器就可以出多种怪*/
     _enemytimer1=new QTimer(this);
     connect(_enemytimer1,&QTimer::timeout,this,[=](){
         if(wave_num<=5){
@@ -63,7 +65,7 @@ GameWindow::GameWindow(QWidget *parent) :
 
     this->setFixedSize(1100,750);
 
-
+    /*设置两个回血键*/
     Button *hpbtn=new Button(":/b55.png");
     hpbtn->setParent(this);
     hpbtn->move(305,130);
@@ -75,7 +77,8 @@ GameWindow::GameWindow(QWidget *parent) :
     connect(hppbtn,&Button::clicked,this,&GameWindow::HpRecoverPartially);
 
 
-
+    /*设置按钮来建立三种塔，及拆除、升级塔*/
+    /*普通塔*/
     MenuButton *menubtn1=new MenuButton(":/b11.png");
     menubtn1->setParent(this);
     menubtn1->move(50,50);
@@ -89,6 +92,7 @@ GameWindow::GameWindow(QWidget *parent) :
         setTower(Pos3,QPoint(620,500),end_pos,":/castle1.png",1);
     });
 
+    /*冰冻塔*/
     MenuButton *menubtn2=new MenuButton(":/b22.png");
     menubtn2->setParent(this);
     menubtn2->move(220,50);
@@ -102,6 +106,7 @@ GameWindow::GameWindow(QWidget *parent) :
         setTower(Pos3,QPoint(620,500),end_pos,":/castle2.png",2);
     });
 
+    /*自我成长塔*/
     MenuButton *menubtn5=new MenuButton(":/b88.png");
     menubtn5->setParent(this);
     menubtn5->move(390,50);
@@ -115,6 +120,7 @@ GameWindow::GameWindow(QWidget *parent) :
         setTower(Pos3,QPoint(620,500),end_pos,":/castle3.png",3);
     });
 
+    /*升级塔*/
     MenuButton *menubtn3=new MenuButton(":/b33.png");
     menubtn3->setParent(this);
     menubtn3->move(560,50);
@@ -128,6 +134,7 @@ GameWindow::GameWindow(QWidget *parent) :
         upGradeTower(Pos3);
     });
 
+    /*拆除塔*/
     MenuButton *menubtn4=new MenuButton(":/b44.png");
     menubtn4->setParent(this);
     menubtn4->move(730,50);
@@ -169,6 +176,7 @@ void GameWindow::paintEvent(QPaintEvent *){
 }
 
 void GameWindow::updateScene(){
+    /*如果玩家失血过多就进入输的界面*/
     if(_playerHp<=0){
         _timer->stop();
         _player->stop();
@@ -178,6 +186,7 @@ void GameWindow::updateScene(){
         end->show();
     }
     else {
+        /*如果最后一个怪已出而且怪物表中的怪均已被打死，则赢了*/
         if (_flag && _enemylist.empty()){
             _timer->stop();
             _player->stop();
@@ -187,7 +196,7 @@ void GameWindow::updateScene(){
             end->show();
         }
 
-
+        /*若没赢也没输则游戏继续*/
         foreach(Enemy *enemy,this->_enemylist){
             if(!enemy->checkArrive())
                 enemy->move();
@@ -210,25 +219,14 @@ void GameWindow::addEnemy(QString filename,GameWindow* game,int maxHp,int damage
     _enemylist.push_back(enemy);
 }
 
-void GameWindow::addEnemyRandomly(){
-    srand((unsigned)time(NULL));
-    int num=rand()%5;
-    switch (num) {
-    case 0:{Enemy *enemy=new Enemy(":/vil4.png",this,80,10,100,5.5);_enemylist.push_back(enemy);break;}
-    case 1:{Enemy *enemy=new Enemy(":/vil3.png",this,130,10,100,3.5);_enemylist.push_back(enemy);break;}
-
-    case 2:{Enemy *enemy=new Enemy(":/vil2.png",this,100,15,150,5);_enemylist.push_back(enemy);break;}
-    case 3:{Enemy *enemy=new Enemy(":/vil1.png",this,160,15,150,3);_enemylist.push_back(enemy);break;}
-
-    case 4:{Enemy *enemy=new Enemy(":/vil7.png",this,140,20,200,5);_enemylist.push_back(enemy);break;}
-    }
-}
 
 void GameWindow::deleteEnemy(Enemy* enemy){
     _enemylist.removeOne(enemy);
     delete enemy;
 }
 
+
+/*三个建塔位置，每个位置都有三种建塔情况*/
 void GameWindow::setTower(QPoint pos, QPoint start, QPoint end, QString pix,int type){
     if(pos==Pos1){
         if(!tower_exist[0] && _gold>=normal_cost){
@@ -350,6 +348,7 @@ void GameWindow::deleteTower(QPoint pos){
             _towerlist.removeOne(tower);
             delete tower;
 
+            /*拆塔后要把标签设置为此处无塔且非冰冻塔*/
             if(pos==Pos1){
                 tower_exist[0]=false;
                 tower_frozen[0]=false;
@@ -392,8 +391,11 @@ void GameWindow::showGold_Hp(QPainter *painter){
     painter->save();
     painter->setFont(font);
     painter->setPen(QPen(Qt::white,3));
+
+    /*结构化输出金币和血量*/
     painter->drawText(QRect(100,10,250,150),QString("Gold:%1").arg(_gold));
     painter->drawText(QRect(995,400,250,150),QString("Hp:%1").arg(_playerHp));
+
     painter->restore();
 }
 
@@ -406,6 +408,7 @@ void GameWindow::playSound(QString music,int volume){
 
 void GameWindow::HpRecover(){
     if(_gold>=500){
+        /*只要不是满血都可以进行*/
         if(_playerHp<100){
             playSound("qrc:/music/upgrade.mp3",30);
             _playerHp=100;
@@ -423,6 +426,8 @@ void GameWindow::HpRecoverPartially(){
             _gold-=100;
             return;
         }
+
+        /*若加上10点血后大于100，则只加到100，所减的钱数一样*/
         else if (_playerHp<100) {
             playSound("qrc:/music/upgrade.mp3",30);
             _playerHp=100;

@@ -34,8 +34,8 @@ void GrowingTower::targetKilled()
         player->setVolume(10);
         player->play();
 
-        _killedNum+=1;
-        if(_killedNum%3==0){
+        _killedNum+=1;      /*每杀死一个，数量加一*/
+        if(_killedNum%3==0){                        /*此处设定为每杀死三个敌人升级一次*/
             upGrade();
             QMediaPlayer * player = new QMediaPlayer;
             player->setMedia(QUrl("qrc:/music/upgrade.mp3"));

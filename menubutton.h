@@ -7,6 +7,8 @@
 #include <QPushButton>
 #include <QAction>
 
+
+/*菜单按钮，游戏界面中的重要部件*/
 class MenuButton : public QPushButton
 {
     Q_OBJECT

@@ -27,6 +27,8 @@ void Tower::draw(QPainter *painter) const{
     painter->drawPixmap(_posi,_pixmap);
     painter->save();
     if(_target){
+
+        /*实时绘制塔与选中敌人之间的线，作为攻击的“激光”*/
         painter->setPen(Qt::NoPen);
         painter->setPen(QPen(Qt::yellow,_line));
         painter->drawLine(_posi.x()+50,_posi.y()+50,_target->getCurrentPos().x()+50,_target->getCurrentPos().y()+35);
@@ -44,6 +46,8 @@ int Tower::getDamageValue(){
 }
 
 void Tower::upDateCheck(){
+
+    /*若无目标，则选择目标*/
     if(!_target){
         QList<Enemy *> enemyList=_game->get_enemylist();
         foreach (Enemy* enemy,enemyList)
@@ -55,6 +59,8 @@ void Tower::upDateCheck(){
             }
         }
     }
+
+    /*若有目标且在范围内则攻击，超出范围则删除目标寻找下一个*/
     else {
         if(_target->getCurrentPos().x()>=this->_endAttack.x()){
             if (_target)

@@ -3,7 +3,7 @@
 
 #include "tower.h"
 
-
+/*冰冻塔继承了塔，除了攻击的激光绘制不同、每次刷新调用的检查函数不同、选中敌人的函数不同*/
 class FrozenTower:public Tower
 {
 public:

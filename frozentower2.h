@@ -4,7 +4,7 @@
 
 #include "tower2.h"
 
-
+/*专为GameWindow2设计的冰冻塔类*/
 class FrozenTower2:public Tower2
 {
 public:

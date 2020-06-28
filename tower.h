@@ -15,12 +15,12 @@ class Tower : public QObject
 public:
     explicit Tower(QPoint posi,QPoint startattck,QPoint endattack,QString pixFileName,GameWindow* game,double line,double damage);
     QPoint getPos() const;
-    int getDamageValue();
+    int getDamageValue();       /*返回塔的伤害值*/
     void upGrade();
     virtual void draw(QPainter *painter) const;
-    virtual void upDateCheck();
-    virtual void chooseToAttack(Enemy* enemy);
-    virtual void targetKilled();
+    virtual void upDateCheck();             /*每次刷新页面的时候调用的函数，用于选择敌人及攻击敌人*/
+    virtual void chooseToAttack(Enemy* enemy);      /*选中敌人*/
+    virtual void targetKilled();        /*移除已杀死的敌人目标*/
 
 protected:
     QPoint _posi;

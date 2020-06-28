@@ -4,7 +4,7 @@
 
 #include "tower.h"
 
-
+/*自我成长塔继承了塔，区别仅在于要计算自身杀死的敌人数量*/
 class GrowingTower:public Tower
 {
 public:

@@ -1,5 +1,6 @@
 #include "menubutton.h"
 
+/*建立有三个选项的菜单按钮*/
 MenuButton::MenuButton(QString pix) : QPushButton (0),_pixmap(pix)
 {
     this->setFixedSize(_pixmap.width(),_pixmap.height());

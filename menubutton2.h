@@ -8,6 +8,8 @@
 #include <QPushButton>
 #include <QAction>
 
+
+/*专为GameWindow2设计的菜单按钮类*/
 class MenuButton2 : public QPushButton
 {
     Q_OBJECT

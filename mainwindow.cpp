@@ -25,8 +25,9 @@ MainWindow::MainWindow(QWidget *parent) :
     player2->setVolume(30);
     player2->play();
 
+    /*用一个Button类链接MainWindow和Window*/
     connect(button,&QPushButton::clicked,this,[=](){
-        player2->stop();
+        player2->stop();        /*切换界面时切换音乐*/
         this->close();
         scene->show();
     });

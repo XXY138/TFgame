@@ -8,10 +8,11 @@
 #include <QPropertyAnimation>
 #include <QPainter>
 
-class QPainter;
 class GameWindow2;
 class Tower2;
 
+
+/*专为GameWindow2设计的敌人类*/
 class Enemy2 : public QObject
 {
     Q_OBJECT

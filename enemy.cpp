@@ -26,6 +26,7 @@ Enemy::Enemy(QString filename,GameWindow* game,int maxHp,int damage,int value,do
 
 }
 
+/*创建移动动画*/
 void Enemy::move(){
     QVector2D vector(this->_targetpos-this->_startpos);
     vector.normalize();
@@ -36,7 +37,7 @@ void Enemy::draw(QPainter *painter) const{
     painter->drawPixmap(this->_currentpos,this->_pixmap);
     painter->save();
 
-    // 绘制血条
+    /*绘制血条*/
     QPoint HpBarPoint = _currentpos + QPoint(Hp_Width/2, 0);
     painter->setPen(Qt::NoPen);
     painter->setBrush(Qt::red);
@@ -67,7 +68,7 @@ void Enemy::getAttack(Tower* attacker){
 void Enemy::getFrozenAttack(Tower *attacker){
     int damage=attacker->getDamageValue();
     if(this->_currentHp-damage>0){
-        if(this->_maxHp>=500)
+        if(this->_maxHp>=500)                               /*如果是老怪就无法将其冰冻，只能普通攻击*/
             this->_currentHp=this->_currentHp-damage;
         else {
             this->_speed=0;

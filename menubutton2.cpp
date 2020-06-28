@@ -1,5 +1,6 @@
 #include "menubutton2.h"
 
+/*菜单按钮选项数目为8个*/
 MenuButton2::MenuButton2(QString pix) : QPushButton (0),_pixmap(pix)
 {
     this->setFixedSize(_pixmap.width(),_pixmap.height());
