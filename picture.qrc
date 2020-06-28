@@ -38,5 +38,56 @@
         <file>music/shortLose.mp3</file>
         <file>menubutton.png</file>
         <file>set_up.png</file>
+        <file>win.jpg</file>
+        <file>fail.jpg</file>
+        <file>truekeji.png</file>
+        <file>princess1.jpg</file>
+        <file>princess2.jpg</file>
+        <file>princ1.jpg</file>
+        <file>start_btn.png</file>
+        <file>set1.png</file>
+        <file>music/bubble.mp3</file>
+        <file>up1.png</file>
+        <file>castle2.png</file>
+        <file>music/upgrade.mp3</file>
+        <file>music/enemy.mp3</file>
+        <file>music/die.mp3</file>
+        <file>music/Hp.mp3</file>
+        <file>castle1.png</file>
+        <file>1.png</file>
+        <file>2.png</file>
+        <file>3.png</file>
+        <file>4.png</file>
+        <file>vil1.png</file>
+        <file>5.png</file>
+        <file>b1.png</file>
+        <file>b11.png</file>
+        <file>b33.png</file>
+        <file>b22.png</file>
+        <file>b44.png</file>
+        <file>b55.png</file>
+        <file>music/mountains.mp3</file>
+        <file>music/showyourself.mp3</file>
+        <file>vil2.png</file>
+        <file>vil3.png</file>
+        <file>music/epi.mp3</file>
+        <file>b66.png</file>
+        <file>castle3.png</file>
+        <file>b77.png</file>
+        <file>princ2.jpg</file>
+        <file>vil5.png</file>
+        <file>vil6.png</file>
+        <file>vil7.png</file>
+        <file>vil8.png</file>
+        <file>vil4.png</file>
+        <file>big.png</file>
+        <file>big1.png</file>
+        <file>big2.png</file>
+        <file>big11.png</file>
+        <file>big22.png</file>
+        <file>p1.jpg</file>
+        <file>p2.jpg</file>
+        <file>realcover.jpg</file>
+        <file>b88.png</file>
     </qresource>
 </RCC>

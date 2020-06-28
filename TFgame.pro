@@ -32,9 +32,17 @@ SOURCES += \
     window.cpp \
     gamewindow.cpp \
     tower.cpp \
-    object.cpp \
     enemy.cpp \
-    menubutton.cpp
+    menubutton.cpp \
+    frozentower.cpp \
+    endwindow.cpp \
+    growingtower.cpp \
+    tower2.cpp \
+    enemy2.cpp \
+    gamewindow2.cpp \
+    frozentower2.cpp \
+    growingtower2.cpp \
+    menubutton2.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -42,9 +50,17 @@ HEADERS += \
     window.h \
     gamewindow.h \
     tower.h \
-    object.h \
     enemy.h \
-    menubutton.h
+    menubutton.h \
+    frozentower.h \
+    endwindow.h \
+    growingtower.h \
+    tower2.h \
+    enemy2.h \
+    gamewindow2.h \
+    frozentower2.h \
+    growingtower2.h \
+    menubutton2.h
 
 FORMS += \
         mainwindow.ui

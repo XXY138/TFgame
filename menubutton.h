@@ -17,12 +17,9 @@ private:
     QPixmap _pixmap;
 
 signals:
-    void setUp1_1();
-    void setUp1_2();
-    void setUp2_1();
-    void setUp2_2();
-    void setUp3_1();
-    void setUp3_2();
+    void at1();
+    void at2();
+    void at3();
 
 public slots:
 };

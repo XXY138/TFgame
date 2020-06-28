@@ -1,6 +1,7 @@
 #include "window.h"
 #include "button.h"
 #include "gamewindow.h"
+#include"gamewindow2.h"
 #include <QPainter>
 #include <QPixmap>
 #include <QPaintEvent>
@@ -18,15 +19,22 @@ Window::Window(QWidget *parent) : QMainWindow(parent)
     connect(button1,&QPushButton::clicked,this,[=](){
         this->close();
         scene1->show();
-    });
-    connect(scene1,&GameWindow::chooseToBack,this,[=](){
-        scene1->close();
-        this->show();
+        scene1->_player->play();
+        scene1->_timer->start(100);
+        scene1->_enemytimer1->start(7000);
     });
 
     Button *button2=new Button(":/guanqia2.jpg");
     button2->setParent(this);
     button2->move(600,150);
+    GameWindow2 * scene2 = new GameWindow2;
+    connect(button2,&QPushButton::clicked,this,[=](){
+        this->close();
+        scene2->show();
+        scene2->_player->play();
+        scene2->_timer->start(100);
+        scene2->_enemytimer1->start(5500);
+    });
 
 
 }

@@ -7,29 +7,34 @@
 #include <QPainter>
 #include<QtMath>
 #include<QList>
+#include <QMediaPlayer>
 
-Tower::Tower(QPoint posi,QPoint startattck,QPoint endattack,QString pixFileName,GameWindow* game):
+Tower::Tower(QPoint posi,QPoint startattck,QPoint endattack,QString pixFileName,GameWindow* game,double line,double damage):
     QObject (0),
     _posi(posi),
     _pixmap(pixFileName),
     _startAttack(startattck),
     _endAttack(endattack),
-    _fireRate(1000),
-    _damage(1),
-    _game(game),
-    _target(NULL)
+    _damage(damage),
+    _line(line),
+    _target(NULL),
+    _game(game)
 {
-    /*_fireTimer = new QTimer(this);
-    connect(_fireTimer, SIGNAL(timeout()), this, SLOT(shoot()));*/
+
 }
 
 void Tower::draw(QPainter *painter) const{
-    painter->save();
     painter->drawPixmap(_posi,_pixmap);
+    painter->save();
+    if(_target){
+        painter->setPen(Qt::NoPen);
+        painter->setPen(QPen(Qt::yellow,_line));
+        painter->drawLine(_posi.x()+50,_posi.y()+50,_target->getCurrentPos().x()+50,_target->getCurrentPos().y()+35);
+    }
     painter->restore();
 }
 
-QPoint Tower::getPos(){
+QPoint Tower::getPos()const{
     return this->_posi;
 }
 
@@ -43,7 +48,7 @@ void Tower::upDateCheck(){
         QList<Enemy *> enemyList=_game->get_enemylist();
         foreach (Enemy* enemy,enemyList)
         {
-            if (enemy->getCurrentPos().rx()>this->_startAttack.rx() && enemy->getCurrentPos().rx()<this->_endAttack.rx() && enemy->isAlive())
+            if (enemy->getCurrentPos().x()>this->_startAttack.x() && enemy->getCurrentPos().x()<this->_endAttack.x() && enemy->isAlive())
             {
                 chooseToAttack(enemy);
                 break;
@@ -51,14 +56,12 @@ void Tower::upDateCheck(){
         }
     }
     else {
-        if(_target->getCurrentPos().rx()>this->_endAttack.rx()){
+        if(_target->getCurrentPos().x()>=this->_endAttack.x()){
             if (_target)
                 _target=NULL;
-
-            /*_fireTimer->stop();*/
         }
     else {
-        _target->getAttack(this);
+            _target->getAttack(this);
     }
     }
 }
@@ -66,35 +69,25 @@ void Tower::upDateCheck(){
 void Tower::chooseToAttack(Enemy *enemy)
 {
     _target=enemy;
-    /*attack();*/
     _target->getAttack(this);
 }
 
-/*void Tower::attack(){
-    _fireTimer->start(_fireRate);
-}*/
-
 void Tower::targetKilled()
 {
-    if (_target)
+    if (_target){
+        QMediaPlayer * player = new QMediaPlayer;
+        player->setMedia(QUrl("qrc:/music/die.mp3"));
+        player->setVolume(15);
+        player->play();
+
+        _game->awardGold(_target->getValue());
         _target=NULL;
-
-   /* _fireTimer->stop();*/
-}
-
-/*void Tower::loseEnemy(){
-
-}
-
-void Tower::enemyKilled(){
-    if(_chosenEnemy)
-        _chosenEnemy=NULL;
-    _rateTimer->stop();
+    }
 }
 
 
-
-void Tower::attackEnemy(){
-    _rateTimer->start(_rate);
-}*/
+void Tower::upGrade(){
+    this->_damage+=1;
+    this->_line+=1;
+}
 

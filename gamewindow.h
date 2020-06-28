@@ -4,9 +4,9 @@
 #include "tower.h"
 #include <QMainWindow>
 #include <QList>
+#include <QMediaPlayer>
 
 
-class Bullet;
 class Enemy;
 
 class GameWindow : public QMainWindow
@@ -14,37 +14,42 @@ class GameWindow : public QMainWindow
     Q_OBJECT
 public:
     explicit GameWindow(QWidget *parent = nullptr);
+    ~GameWindow();
     void paintEvent(QPaintEvent*);
-    void addEnemy();
     void updateScene();
-    void setTower1_1();
-    void setTower1_2();
-    void setTower2_1();
-    void setTower2_2();
-    void setTower3_1();
-    void setTower3_2();
-    void deleteTower1();
-    void deleteTower2();
-    void deleteTower3();
+    void addEnemy(QString filename,GameWindow* game,int maxHp,int damage,int value,double speed);
+    void addEnemyRandomly();
+    void deleteEnemy(Enemy* enemy);
+    void setTower(QPoint pos,QPoint start,QPoint end,QString pix,int type);
+    void upGradeTower(QPoint pos);
+    void deleteTower(QPoint pos);
     void getHpDamage(int damage);
     void awardGold(int gold);
+    void showGold_Hp(QPainter* painter);
+    void playSound(QString music,int volume);
+    void HpRecover();
+    void HpRecoverPartially();
     QList<Enemy*> get_enemylist();
+    QMediaPlayer* _player;
+    QTimer* _timer;
+    QTimer* _enemytimer1;
 
-private:
+
+protected:
     bool _gameWin;
     bool _gameLose;
     int _gold;
-    int _waves;
-    int _totalWaves;
     int _playerHp;
     QList<Tower*> _towerlist;
     QList<Enemy*> _enemylist;
-    bool tower1_exist;
-    bool tower2_exist;
-    bool tower3_exist;
+    bool _flag;
+    int wave_num;
+    bool* tower_exist;
+    bool* tower_frozen;
+
 
 signals:
-    void chooseToBack();
+
 
 public slots:
 };

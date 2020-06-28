@@ -5,6 +5,7 @@
 #include <QPaintEvent>
 #include <QPushButton>
 #include <QDebug>
+#include <QMediaPlayer>
 #include "button.h"
 #include "window.h"
 
@@ -14,18 +15,22 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     this->setFixedSize(1100,750);
     ui->setupUi(this);
-    Button *button=new Button(":/anniu.jpeg");
+    Button *button=new Button(":/start_btn.png");
     button->setParent(this);
-    button->move(140,380);
+    button->move(460,400);
     Window *scene = new Window;
+
+    QMediaPlayer * player2 = new QMediaPlayer;
+    player2->setMedia(QUrl("qrc:/music/mario.mp3"));
+    player2->setVolume(30);
+    player2->play();
+
     connect(button,&QPushButton::clicked,this,[=](){
+        player2->stop();
         this->close();
         scene->show();
     });
-    QMediaPlayer * player = new QMediaPlayer;
-    player->setMedia(QUrl("qrc:/music/mario.mp3"));
-    player->setVolume(30);
-    player->play();
+
 }
 
 MainWindow::~MainWindow()
@@ -35,7 +40,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::paintEvent(QPaintEvent* e){
     QPainter painter(this);
-    QPixmap pixmap(":/fengmian3.jpg");
+    QPixmap pixmap(":/realcover.jpg");
     painter.drawPixmap(0,0,this->width(),this->height(),pixmap);
 }
 
