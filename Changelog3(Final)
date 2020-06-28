@@ -1,0 +1,18 @@
+All notable changes during Change3(on 6.28) to this project will be documented in this file.
+
+##[0.0.3] -2020-06-28
+###Removed
+-	移除了Object类，此版本为最初版的低级敌人类型，不再需要。
+
+###Added
+-	增加了EndWindow类，用于显示最后胜利或失败的画面。
+-	增加了FrozenTower类，继承了Tower类并且具有冰冻技能。
+-	增加了GrowingTower类，继承了Tower类并且具有自我升级技能。
+-	增加了Enemy2、GameWindow2、FrozenTower2、GrowingTower2、MenuButton2及Tower2类，用于第二关。
+-	GameWindow类中，增加了波数wave_number、标志_flag和定时器_enemytimer1，用于控制敌人自动出现；增加了音乐播放器_player，用于切换界面时进行背景音乐的切换；增加了addEnemyRandomly函数，用于使一波敌人具有不同的类型；增加了deleteEnemy函数，用于在敌人被杀死后或者走到终点后清除敌人；增加了upGradeTower函数，用于塔的升级；增加了deleteTower函数，用于塔的拆除；增加了showGold_Hp函数，用于显示当前玩家的金币和血量；增加了playSound函数，用于封装常用的播放音乐代码，以增加代码可重用性；增加了HpRecover和HpRecoverPartially函数，分别用于一键满血和部分回血。
+-	Enemy类中，增加了_value成员及getValue函数，分别用于储存敌人的价值信息及得到敌人的价值信息；增加了getFrozenAttack函数，用于接收冰冻塔的攻击；增加了getDeleted函数，用于在敌人被杀死后或者走到终点后清除敌人；增加了checkArrive函数，用于检查敌人是否到达终点；增加了getDamageValue函数，用于得到敌人的杀伤力。
+-	Tower类中，增加了upGrade函数，用于塔的升级。
+-	
+###Changed
+-	改变了背景音乐的播放方式，不是从头到尾只播放一种音乐，而是会根据界面的切换而进行改变。
+-	GameWindow类中，改变了分散式储存建塔信息的方式，改为用指针来系统化储存。
